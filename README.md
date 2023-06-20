@@ -1,8 +1,8 @@
 # Noted
-*CLI note-taking app, primarily for use as a quick and dirty way to record information. *
+*CLI note-taking app, primarily for use as a quick and dirty way to record information. I previously worked as a major incident manager and often needed a tool that worked quickly and efficiently to help me record relevant information during critical events. That is the primary motivation behind this tool.*
 
 ### Dependencies
-- Make
+- [Make](https://www.gnu.org/software/make/)
 - [Termcolor](https://github.com/ikalnytskyi/termcolor)
 
 ### Installation
