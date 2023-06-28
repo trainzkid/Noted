@@ -10,6 +10,7 @@
 #include <fstream>
 #include <limits>
 #include <sstream>
+#include <note.h>
 
 int main(int argc,char* argv[],char* env[]) {
 	std::unordered_map<std::string,std::string> envVars;
@@ -44,13 +45,12 @@ int main(int argc,char* argv[],char* env[]) {
 	notesFile<<"("<<std::format("{:%m-%d-%Y}",start)<<")"<<std::endl;
 
 	while(true) {
-		std::string note;
+		Noted::Note note{};
 		std::cout<<"Enter your note: ";
-		std::getline(std::cin,note);
-		if(note.compare("q")==0||note.compare("exit")==0)
+		std::getline(std::cin,note.contents);
+		if(note.contents.compare("q")==0||note.contents.compare("exit")==0)
 			break;
-		const auto now=std::chrono::zoned_time{std::chrono::current_zone(),std::chrono::system_clock::now()}.get_local_time();
-		notesFile<<std::format("{:%I:%M %p}",now)<<" CST - "<<note<<std::endl;		// using %Z in std::format with a local_time causes std::format to throw a std::format_error, see https://en.cppreference.com/w/cpp/chrono/local_t/formatter
+		notesFile<<std::format("{:%I:%M %p}",std::chrono::zoned_time{std::chrono::current_zone(),note.created_at}.get_local_time())<<" CST - "<<note.contents<<std::endl;		// using %Z in std::format with a local_time causes std::format to throw a std::format_error, see https://en.cppreference.com/w/cpp/chrono/local_t/formatter
 	}
 
 	const auto end = std::chrono::zoned_time{std::chrono::current_zone(),std::chrono::system_clock::now()}.get_local_time();
